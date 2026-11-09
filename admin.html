@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ-панель — ЧистоДом</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ВХОД -->
+  <div class="auth" id="authScreen">
+    <form class="auth__card" id="authForm" novalidate>
+      <div class="auth__brand"><span class="logo__icon">◈</span><span>ЧистоДом</span></div>
+      <h1 class="auth__title">Вход в админ-панель</h1>
+      <p class="auth__subtitle">Email и пароль администратора</p>
+
+      <div class="form-group">
+        <label for="adminEmail">Email</label>
+        <input type="email" id="adminEmail" placeholder="admin@chistodom05.ru" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label for="adminPassword">Пароль</label>
+        <input type="password" id="adminPassword" placeholder="••••••••" autocomplete="current-password" required>
+        <span class="form-error" id="authError"></span>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--full" id="loginBtn">Войти</button>
+      <a class="auth__link" href="index.html">← Вернуться на сайт</a>
+    </form>
+  </div>
+
+  <!-- ПАНЕЛЬ -->
+  <div class="admin" id="adminPanel" hidden>
+    <header class="admin-header">
+      <div class="admin-header__inner">
+        <div class="admin-header__brand">
+          <span class="logo__icon">◈</span>
+          <div>
+            <div class="admin-header__title">ЧистоДом</div>
+            <div class="admin-header__subtitle">Админ-панель</div>
+          </div>
+        </div>
+        <div class="admin-header__actions">
+          <a href="index.html" target="_blank" rel="noopener" class="btn btn--ghost btn--sm">Открыть сайт ↗</a>
+          <button type="button" class="btn btn--ghost btn--sm" id="logoutBtn">Выйти</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="admin-tabs">
+      <div class="admin-tabs__inner">
+        <button type="button" class="admin-tab is-active" data-tab="services">Услуги</button>
+        <button type="button" class="admin-tab" data-tab="promotions">Акции</button>
+        <button type="button" class="admin-tab" data-tab="requests">
+          Заявки <span class="admin-tab__badge" id="requestsBadge" hidden>0</span>
+        </button>
+      </div>
+    </nav>
+
+    <main class="admin-main">
+      <div class="admin-alert" id="configWarning" hidden>
+        ⚠️ Supabase не настроен. Проверьте <code>config.js</code>.
+      </div>
+
+      <!-- УСЛУГИ -->
+      <section class="admin-section" id="tab-services">
+        <div class="admin-section__head">
+          <div>
+            <h2 class="admin-section__title">Услуги</h2>
+            <p class="admin-section__hint">Показываются на главной, если статус «Активна».</p>
+          </div>
+          <button type="button" class="btn btn--primary" id="addServiceBtn">+ Добавить услугу</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th class="col-thumb">Фото</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th class="col-price">Цена</th>
+                <th class="col-status">Статус</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="servicesTbody"></tbody>
+          </table>
+        </div>
+        <p class="admin-empty" id="servicesEmpty" hidden>Пока нет ни одной услуги.</p>
+      </section>
+
+      <!-- АКЦИИ -->
+      <section class="admin-section" id="tab-promotions" hidden>
+        <div class="admin-section__head">
+          <div>
+            <h2 class="admin-section__title">Акции</h2>
+            <p class="admin-section__hint">Блок на главной скрывается, если нет активных акций.</p>
+          </div>
+          <button type="button" class="btn btn--primary" id="addPromoBtn">+ Добавить акцию</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th class="col-thumb">Фото</th>
+                <th>Заголовок</th>
+                <th>Описание</th>
+                <th class="col-status">Статус</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="promotionsTbody"></tbody>
+          </table>
+        </div>
+        <p class="admin-empty" id="promotionsEmpty" hidden>Пока нет ни одной акции.</p>
+      </section>
+
+      <!-- ЗАЯВКИ -->
+      <section class="admin-section" id="tab-requests" hidden>
+        <div class="admin-section__head">
+          <div>
+            <h2 class="admin-section__title">Заявки с сайта</h2>
+            <p class="admin-section__hint">Клиенты, оставившие заявку через форму. Свяжитесь с ними и отметьте как «Обработана».</p>
+          </div>
+          <div class="req-toolbar">
+            <button type="button" class="btn btn--ghost btn--sm" id="refreshRequestsBtn">↻ Обновить</button>
+            <button type="button" class="btn btn--ghost btn--sm" id="exportRequestsBtn">⬇ Экспорт CSV</button>
+          </div>
+        </div>
+
+        <div class="req-filters">
+          <button type="button" class="req-filter is-active" data-filter="all">
+            Все <span class="req-filter__count" id="countAll">0</span>
+          </button>
+          <button type="button" class="req-filter" data-filter="new">
+            Новые <span class="req-filter__count" id="countNew">0</span>
+          </button>
+          <button type="button" class="req-filter" data-filter="processed">
+            Обработанные <span class="req-filter__count" id="countProcessed">0</span>
+          </button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table admin-table--requests">
+            <thead>
+              <tr>
+                <th class="req-col-date">Дата</th>
+                <th>Имя</th>
+                <th class="req-col-phone">Телефон</th>
+                <th>Комментарий</th>
+                <th class="col-status">Статус</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="requestsTbody"></tbody>
+          </table>
+        </div>
+        <p class="admin-empty" id="requestsEmpty" hidden>Пока нет ни одной заявки.</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- МОДАЛКА УСЛУГИ -->
+  <div class="modal" id="serviceModal" hidden>
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+      <button type="button" class="modal__close" data-close-modal aria-label="Закрыть">×</button>
+      <h2 class="modal__title" id="serviceModalTitle">Новая услуга</h2>
+      <form id="serviceForm" novalidate>
+        <input type="hidden" id="serviceId">
+        <div class="form-group">
+          <label for="serviceName">Название *</label>
+          <input type="text" id="serviceName" required>
+        </div>
+        <div class="form-group">
+          <label for="serviceDescription">Описание</label>
+          <textarea id="serviceDescription" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="servicePrice">Цена</label>
+            <input type="text" id="servicePrice" placeholder="от 1 200 ₽">
+          </div>
+          <div class="form-group">
+            <label for="serviceActive">Статус</label>
+            <select id="serviceActive">
+              <option value="true">Активна</option>
+              <option value="false">Скрыта</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="serviceImage">Ссылка на картинку</label>
+          <input type="text" id="serviceImage" placeholder="images/outerwear.jpeg или https://…">
+          <div class="image-preview" id="serviceImagePreview" hidden></div>
+        </div>
+        <span class="form-error" id="serviceFormError"></span>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close-modal>Отмена</button>
+          <button type="submit" class="btn btn--primary" id="serviceSubmit">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА АКЦИИ -->
+  <div class="modal" id="promoModal" hidden>
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="promoModalTitle">
+      <button type="button" class="modal__close" data-close-modal aria-label="Закрыть">×</button>
+      <h2 class="modal__title" id="promoModalTitle">Новая акция</h2>
+      <form id="promoForm" novalidate>
+        <input type="hidden" id="promoId">
+        <div class="form-group">
+          <label for="promoTitle">Заголовок *</label>
+          <input type="text" id="promoTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="promoDescription">Описание</label>
+          <textarea id="promoDescription" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group form-group--grow">
+            <label for="promoImage">Ссылка на картинку</label>
+            <input type="text" id="promoImage" placeholder="images/outerwear.jpeg">
+          </div>
+          <div class="form-group">
+            <label for="promoActive">Статус</label>
+            <select id="promoActive">
+              <option value="true">Активна</option>
+              <option value="false">Скрыта</option>
+            </select>
+          </div>
+        </div>
+        <div class="image-preview" id="promoImagePreview" hidden></div>
+        <span class="form-error" id="promoFormError"></span>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close-modal>Отмена</button>
+          <button type="submit" class="btn btn--primary" id="promoSubmit">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

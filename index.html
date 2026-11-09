@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЧистоДом — химчистка одежды в Махачкале</title>
+  <meta name="description" content="Профессиональная химчистка одежды в Махачкале: пуховики, пальто, костюмы, платья, свадебные наряды, деликатные ткани, кожа и замша. Удаление сложных пятен и запахов.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <span class="logo__icon">◈</span>
+        <span class="logo__text">ЧистоДом</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li><a href="#services" class="nav__link">Услуги</a></li>
+          <li><a href="#advantages" class="nav__link">Преимущества</a></li>
+          <li><a href="#prices" class="nav__link">Цены</a></li>
+          <li><a href="#reviews" class="nav__link">Отзывы</a></li>
+          <li><a href="#contacts" class="nav__link">Контакты</a></li>
+        </ul>
+        <a href="#form" class="btn btn--primary nav__cta">Оставить заявку</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <span class="badge">Махачкала · Республика Дагестан</span>
+          <h1 class="hero__title">Химчистка одежды, которой доверяют</h1>
+          <p class="hero__subtitle">
+            Бережно возвращаем свежесть пуховикам, пальто, костюмам, платьям и деликатным тканям.
+            Удаляем сложные пятна и запахи. Работаем с любовью к каждой вещи.
+          </p>
+          <div class="hero__actions">
+            <a href="#form" class="btn btn--primary">Оставить заявку</a>
+            <a href="#prices" class="btn btn--outline">Посмотреть цены</a>
+          </div>
+          <ul class="hero__stats">
+            <li><strong>8+</strong> лет опыта</li>
+            <li><strong>12 000+</strong> вычищенных вещей</li>
+            <li><strong>98%</strong> довольных клиентов</li>
+          </ul>
+        </div>
+        <div class="hero__image-wrap">
+          <img
+            src="images/hero.jpeg"
+            alt="Чистая одежда на вешалках в химчистке"
+            class="hero__image"
+            loading="eager"
+            width="800"
+            height="600"
+            onerror="this.onerror=null; this.src='https://images.pexels.com/photos/17947820/pexels-photo-17947820.jpeg?auto=compress&cs=tinysrgb&w=800'"
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="section promotions" id="promotions" hidden>
+      <div class="container">
+        <h2 class="section__title">Акции и спецпредложения</h2>
+        <p class="section__subtitle">Выгодные предложения химчистки «ЧистоДом».</p>
+        <div class="promotions-grid" id="promotionsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <h2 class="section__title">Наши услуги</h2>
+        <p class="section__subtitle">Специализируемся исключительно на одежде — поэтому знаем о тканях всё.</p>
+        <div class="services-grid" id="servicesGrid" aria-live="polite"></div>
+        <p class="services-note" id="servicesNote" hidden></p>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="advantages">
+      <div class="container">
+        <h2 class="section__title">Почему выбирают «ЧистоДом»</h2>
+        <div class="advantages-grid">
+          <div class="advantage"><div class="advantage__icon">🧼</div><h3>Только одежда</h3><p>Мы не распыляемся на мебель и ковры — вся экспертиза сосредоточена на одежде.</p></div>
+          <div class="advantage"><div class="advantage__icon">🌿</div><h3>Бережные составы</h3><p>Профессиональная химия с нейтральным pH и гипоаллергенные средства для детей.</p></div>
+          <div class="advantage"><div class="advantage__icon">⚡</div><h3>Экспресс-режим</h3><p>Срочная чистка в день обращения — без доплаты за скорость в будние дни.</p></div>
+          <div class="advantage"><div class="advantage__icon">🏆</div><h3>Опытные технологи</h3><p>Стаж мастеров от 5 лет. Знаем особенности дагестанских национальных тканей и кроя.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prices">
+      <div class="container">
+        <h2 class="section__title">Цены</h2>
+        <p class="section__subtitle">Точная стоимость зависит от ткани и степени загрязнения — уточняйте по телефону.</p>
+        <div class="prices-table-wrap">
+          <table class="prices-table">
+            <thead><tr><th>Услуга</th><th>Цена, ₽</th></tr></thead>
+            <tbody>
+              <tr><td>Пуховик (до 100 см)</td><td>от 1 200</td></tr>
+              <tr><td>Пуховик (от 100 см)</td><td>от 1 500</td></tr>
+              <tr><td>Пальто шерстяное / кашемировое</td><td>от 1 500</td></tr>
+              <tr><td>Костюм (пиджак + брюки)</td><td>от 1 000</td></tr>
+              <tr><td>Платье повседневное</td><td>от 800</td></tr>
+              <tr><td>Вечернее платье</td><td>от 1 200</td></tr>
+              <tr><td>Свадебное платье</td><td>от 3 000</td></tr>
+              <tr><td>Детская одежда (за единицу)</td><td>от 500</td></tr>
+              <tr><td>Деликатные ткани (шёлк, кашемир)</td><td>от 1 000</td></tr>
+              <tr><td>Кожаная / замшевая куртка</td><td>от 1 500</td></tr>
+              <tr><td>Экспресс-чистка</td><td>+50% к тарифу</td></tr>
+              <tr><td>Выведение запаха (озонирование)</td><td>от 400</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="prices-note">* Минимальный заказ — 500 ₽. Выезд курьера по Махачкале — бесплатно при заказе от 1 500 ₽.</p>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="reviews">
+      <div class="container">
+        <h2 class="section__title">Отзывы клиентов</h2>
+        <div class="reviews-grid">
+          <blockquote class="review">
+            <p>«Отдавала пуховик после зимы — думала, уже не спасти. Вернули как новый, пух распушили, запах исчез. Очень довольна!»</p>
+            <footer>— Аминат, Махачкала</footer>
+          </blockquote>
+          <blockquote class="review">
+            <p>«Свадебное платье чистили здесь. Кружево и бисер остались идеальными, ни одной зацепки. Спасибо за аккуратность!»</p>
+            <footer>— Зарема, Каспийск</footer>
+          </blockquote>
+          <blockquote class="review">
+            <p>«Постоянно сдаю костюмы и рубашки. Всегда быстро, вежливо и без разводов. Цены в Махачкале адекватные.»</p>
+            <footer>— Магомед, Махачкала</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacts">
+      <div class="container contacts-grid">
+        <div class="contacts-info">
+          <h2 class="section__title">Контакты</h2>
+          <ul class="contacts-list">
+            <li><strong>Адрес:</strong> г. Махачкала, ул. Гагарина, 26 (вход с улицы)</li>
+            <li><strong>Телефон:</strong> <a href="tel:+79634127500">8 (963) 412-75-00</a></li>
+            <li><strong>Режим работы:</strong> пн–пт 09:00–19:00, сб 09:00–17:00, вс — выходной</li>
+            <li><strong>Почта:</strong> <a href="mailto:info@chistodom05.ru">info@chistodom05.ru</a></li>
+          </ul>
+          <p class="contacts-note">Работаем по всей Махачкале. Курьерская доставка — бесплатно при заказе от 1 500 ₽.</p>
+        </div>
+
+        <div class="form-card" id="form">
+          <h3 class="form-card__title">Оставить заявку</h3>
+          <p class="form-card__subtitle">Перезвоним в течение 15 минут в рабочее время.</p>
+          <form id="requestForm" novalidate>
+            <div class="hp" aria-hidden="true">
+              <label>Не заполняйте это поле</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+              <label for="name">Ваше имя *</label>
+              <input type="text" id="name" name="name" placeholder="Как к вам обращаться" autocomplete="name" required>
+              <span class="form-error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Телефон *</label>
+              <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" required>
+              <span class="form-error" id="phoneError"></span>
+            </div>
+            <div class="form-group">
+              <label for="comment">Комментарий</label>
+              <textarea id="comment" name="comment" rows="3" placeholder="Что нужно почистить? Опишите вещь и загрязнение"></textarea>
+            </div>
+
+            <div class="form-group form-group--consent">
+              <label class="consent">
+                <input type="checkbox" id="consent" required>
+                <span>Я согласен на обработку персональных данных в соответствии с
+                  <a href="privacy.html" target="_blank" rel="noopener">политикой</a> и
+                  <a href="privacy.html#consent" target="_blank" rel="noopener">условиями согласия</a>.
+                </span>
+              </label>
+              <span class="form-error" id="consentError"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full" id="submitBtn">
+              <span class="btn__text">Отправить заявку</span>
+              <span class="btn__loader" hidden>Отправка…</span>
+            </button>
+            <p class="form-status" id="formStatus" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="logo__icon">◈</span>
+        <span>ЧистоДом</span>
+      </div>
+      <p class="footer__copy">© 2026 Химчистка одежды «ЧистоДом», Махачкала. Все права защищены.</p>
+      <p class="footer__legal">
+        <a href="privacy.html">Политика обработки персональных данных</a>
+        · ИП Иванов И.И. · ИНН 0500000000
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
